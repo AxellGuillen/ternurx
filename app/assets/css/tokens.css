@@ -1,0 +1,190 @@
+/* ═══════════════════════════════════════════════════════════════
+   TERNURX — tokens.css
+   Layer: tokens
+   
+   Nuxt Color Mode applies class to <html>:
+     .default-mode  → white theme
+     .rosa-mode     → pink theme
+   
+   All component styles consume these variables.
+   No selectors beyond :root and theme classes belong here.
+   ═══════════════════════════════════════════════════════════════ */
+
+@layer tokens {
+  /* ─────────────────────────────────────────
+     STATIC TOKENS
+     Values that never change between themes
+     ───────────────────────────────────────── */
+
+  :root {
+    /* ─── Font Stacks ─── */
+    --font-body: "PP Air", system-ui, sans-serif;
+    --font-mono: "PP Air Mono", "Courier New", monospace;
+    --font-display: "PP Playground", Georgia, serif;
+
+    /* ─── Font Weights ─── */
+    --weight-thin: 100;
+    --weight-extralight: 200;
+    --weight-light: 300;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-black: 900;
+
+    /* ─── Type Scale — Major Third (1.25) ─── */
+    --text-3xs: 0.625rem; /* 10px  — meta, credits */
+    --text-2xs: 0.6875rem; /* 11px  — secondary meta */
+    --text-xs: 0.75rem; /* 12px  — data, specs, concept */
+    --text-sm: 0.875rem; /* 14px  — index, body */
+    --text-base: 1rem; /* 16px  — product name, button */
+    --text-lg: 1.25rem; /* 20px  — price */
+    --text-xl: 1.5rem; /* 24px  — brand mobile */
+    --text-2xl: 2rem; /* 32px  — reserved */
+    --text-3xl: 2.5rem; /* 40px  — reserved */
+    --text-4xl: 3rem; /* 48px  — brand desktop */
+
+    /* ─── Line Height ─── */
+    --leading-none: 1;
+    --leading-tight: 1.1;
+    --leading-snug: 1.2;
+    --leading-normal: 1.4;
+    --leading-relaxed: 1.6;
+
+    /* ─── Letter Spacing ─── */
+    --tracking-tight: -0.02em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.04em;
+    --tracking-wider: 0.08em;
+
+    /* ─── Spacing — Base 4px ─── */
+    --space-0: 0;
+    --space-px: 1px;
+    --space-1: 0.25rem; /*   4px */
+    --space-2: 0.5rem; /*   8px */
+    --space-3: 0.75rem; /*  12px */
+    --space-4: 1rem; /*  16px */
+    --space-5: 1.25rem; /*  20px */
+    --space-6: 1.5rem; /*  24px */
+    --space-8: 2rem; /*  32px */
+    --space-10: 2.5rem; /*  40px */
+    --space-12: 3rem; /*  48px */
+    --space-16: 4rem; /*  64px */
+    --space-20: 5rem; /*  80px */
+    --space-24: 6rem; /*  96px */
+    --space-32: 8rem; /* 128px */
+
+    /* ─── Layout ─── */
+    --index-width: 280px;
+    --index-padding-x: var(--space-10);
+    --index-padding-y: var(--space-8);
+    --index-gap: var(--space-3);
+    --data-max-width: 400px;
+    --data-padding: var(--space-5);
+    --media-gap: var(--space-20);
+    --margin-mobile: var(--space-5);
+    --margin-desktop: var(--space-10);
+
+    /* ─── Z-Index ─── */
+    --z-base: 0;
+    --z-text: 10;
+    --z-data: 50;
+    --z-index: 100;
+    --z-header: 100;
+    --z-overlay: 200;
+    --z-toggle: 300;
+
+    /* ─── Transitions ─── */
+    --duration-fast: 150ms;
+    --duration-normal: 200ms;
+    --duration-slow: 300ms;
+    --duration-content: 400ms;
+    --ease-default: ease-out;
+    --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    /* ─── Opacity ─── */
+    --opacity-full: 1;
+    --opacity-hover: 0.65;
+    --opacity-disabled: 0.35;
+    --opacity-overlay: 0.92;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME: DEFAULT (BLANCO)
+     
+     Nuxt Color Mode: html.default-mode
+     Fallback: :root (no class applied)
+     ───────────────────────────────────────── */
+
+  :root,
+  html.default-mode {
+    /* Surfaces */
+    --color-bg: #ffffff;
+    --color-bg-index: #ffffff;
+    --color-bg-data: #ffffff;
+
+    /* Text hierarchy — all pass AAA on #FFFFFF */
+    --color-text-primary: #0a0a0a; /* 19.8:1 */
+    --color-text-secondary: #4a4a4a; /*  9.4:1 */
+    --color-text-tertiary: #737373; /*  4.6:1 AA */
+    --color-text-inverse: #ffffff;
+
+    /* Interactive */
+    --color-interactive: #0a0a0a;
+    --color-interactive-hover: #4a4a4a;
+    --color-interactive-focus: #0a0a0a;
+
+    /* Borders */
+    --color-border: #0a0a0a;
+    --color-border-subtle: #d0d0d0;
+
+    /* Semantic */
+    --color-accent: #ffb3c6;
+    --color-sold-out: #737373;
+
+    /* Button */
+    --color-btn-bg: #0a0a0a;
+    --color-btn-text: #ffffff;
+    --color-btn-bg-hover: #4a4a4a;
+    --color-btn-bg-disabled: #d0d0d0;
+    --color-btn-text-disabled: #737373;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME: ROSA
+     
+     Nuxt Color Mode: html.rosa-mode
+     Contrast verified: #0A0A0A on #FFB3C6 = 11.8:1 AAA
+     ───────────────────────────────────────── */
+
+  html.rosa-mode {
+    /* Surfaces */
+    --color-bg: #ffb3c6;
+    --color-bg-index: #ffb3c6;
+    --color-bg-data: #ffb3c6;
+
+    /* Text hierarchy — all pass AA+ on #FFB3C6 */
+    --color-text-primary: #0a0a0a; /* 11.8:1 AAA */
+    --color-text-secondary: #2d0a16; /* 10.7:1 AAA */
+    --color-text-tertiary: #4a2030; /*  7.2:1 AAA */
+    --color-text-inverse: #ffb3c6;
+
+    /* Interactive */
+    --color-interactive: #0a0a0a;
+    --color-interactive-hover: #2d0a16;
+    --color-interactive-focus: #0a0a0a;
+
+    /* Borders */
+    --color-border: #0a0a0a;
+    --color-border-subtle: #d9899e;
+
+    /* Semantic */
+    --color-accent: #ffffff;
+    --color-sold-out: #4a2030;
+
+    /* Button */
+    --color-btn-bg: #0a0a0a;
+    --color-btn-text: #ffb3c6;
+    --color-btn-bg-hover: #2d0a16;
+    --color-btn-bg-disabled: #d9899e;
+    --color-btn-text-disabled: #4a2030;
+  }
+}

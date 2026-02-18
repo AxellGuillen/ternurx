@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════════════════════════
+   TERNURX — fonts.css
+   
+   Font files: /public/fonts/
+   Families: PP Air (prop + mono) · PP Playground (display)
+   
+   NOTE: @font-face rules must live at the global scope (outside
+   any @layer). Browsers may silently ignore @font-face inside
+   a cascade layer.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── PP Air — Proporcional ─── */
+
+@font-face {
+  font-family: "PP Air";
+  src: url("/fonts/PPAir-ExtraLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air";
+  src: url("/fonts/PPAir-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air";
+  src: url("/fonts/PPAir-MediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air";
+  src: url("/fonts/PPAir-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── PP Air — Monoespaciada ─── */
+
+@font-face {
+  font-family: "PP Air Mono";
+  src: url("/fonts/PPAir-ExtraLightMono.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air Mono";
+  src: url("/fonts/PPAir-MediumMono.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air Mono";
+  src: url("/fonts/PPAir-MediumMonoItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air Mono";
+  src: url("/fonts/PPAir-SemiBoldMono.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air Mono";
+  src: url("/fonts/PPAir-BlackMono.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Air Mono";
+  src: url("/fonts/PPAir-BlackMonoItalic.otf") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ─── PP Playground — Display/Editorial ─── */
+
+@font-face {
+  font-family: "PP Playground";
+  src: url("/fonts/PPPlayground-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Playground";
+  src: url("/fonts/PPPlayground-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PP Playground";
+  src: url("/fonts/PPPlayground-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
