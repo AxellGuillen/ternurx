@@ -1,1 +1,1051 @@
-@import "tailwindcss";
+/* ═══════════════════════════════════════════════════════════════
+   TERNURX — main.css
+   
+   Cascade order declaration + layers: base, components, utilities
+   Tokens layer is defined in tokens.css
+   
+   Import order in nuxt.config.ts:
+     css: [
+       '~/assets/css/fonts.css',
+       '~/assets/css/tokens.css',
+       '~/assets/css/main.css'
+     ]
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────
+   CASCADE ORDER
+   
+   Declared once, governs all files.
+   Layers resolve specificity regardless
+   of import order or selector weight.
+   ───────────────────────────────────────── */
+
+@layer base, tokens, components, utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYER: BASE
+   
+   Reset, html/body defaults, global rules.
+   Lowest priority — everything overrides this.
+   ═══════════════════════════════════════════════════════════════ */
+
+@layer base {
+  /* ─── Reset ─── */
+
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-normal);
+    transition:
+      background-color var(--duration-slow) var(--ease-smooth),
+      color var(--duration-slow) var(--ease-smooth);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  /* Disable border-radius globally — Ternurx design principle */
+  input,
+  select,
+  textarea {
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* ─── Focus States (Accessibility) ─── */
+
+  :focus-visible {
+    outline: 2px solid var(--color-interactive-focus);
+    outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* ─── Selection ─── */
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-text-primary);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYER: COMPONENTS
+   
+   All UI components. Each component is self-contained.
+   Components consume tokens — never hardcode values.
+   ═══════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY CLASSES
+     
+     Semantic type styles mapped to DS spec.
+     Use these on elements or compose in 
+     Vue component <style>.
+     ───────────────────────────────────────── */
+
+  /* Brand — PP Playground Thin 48px */
+  .t-brand {
+    font-family: var(--font-display);
+    font-weight: var(--weight-thin);
+    font-size: var(--text-4xl);
+    line-height: var(--leading-none);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  @media (max-width: 1023px) {
+    .t-brand {
+      font-size: var(--text-xl);
+    }
+  }
+
+  /* Index items — PP Playground Light 14px */
+  .t-index {
+    font-family: var(--font-display);
+    font-weight: var(--weight-light);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .t-index--active {
+    font-weight: var(--weight-medium);
+  }
+
+  /* Brackets — PP Air Mono Medium 14px */
+  .t-bracket {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .t-bracket--active {
+    font-weight: var(--weight-black);
+  }
+
+  /* Product name — PP Air SemiBold 16px */
+  .t-product-name {
+    font-family: var(--font-body);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+  }
+
+  /* Product subtype — PP Air Mono Medium 12px */
+  .t-product-type {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-secondary);
+  }
+
+  /* Technical data — PP Air Mono Medium 12px */
+  .t-data {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .t-data-label {
+    color: var(--color-text-secondary);
+  }
+
+  /* Price — PP Air Mono Black 20px */
+  .t-price {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-black);
+    font-size: var(--text-lg);
+    line-height: var(--leading-tight);
+  }
+
+  /* Conceptual text — PP Air Medium Italic 12px */
+  .t-concept {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-style: italic;
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+  }
+
+  /* Metadata — PP Air ExtraLight 10px uppercase */
+  .t-meta {
+    font-family: var(--font-body);
+    font-weight: var(--weight-extralight);
+    font-size: var(--text-3xs);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-wider);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+  }
+
+  /* Controls — PP Air Mono Medium 14px */
+  .t-control {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    line-height: var(--leading-none);
+  }
+
+  /* Micro label — PP Air Mono Medium 10px */
+  .t-micro {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-3xs);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: INDEX
+     ───────────────────────────────────────── */
+
+  .index {
+    display: flex;
+    flex-direction: column;
+    gap: var(--index-gap);
+    padding: var(--index-padding-y) var(--index-padding-x);
+    background-color: var(--color-bg-index);
+    z-index: var(--z-index);
+    transition: background-color var(--duration-slow) var(--ease-smooth);
+  }
+
+  /* Desktop: fixed sidebar */
+  @media (min-width: 1024px) {
+    .index {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--index-width);
+      height: 100vh;
+      height: 100dvh;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .index::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  /* Mobile: full-screen overlay */
+  @media (max-width: 1023px) {
+    .index {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-overlay);
+      padding: var(--space-8) var(--margin-mobile);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity var(--duration-normal) var(--ease-default),
+        visibility var(--duration-normal) var(--ease-default),
+        background-color var(--duration-slow) var(--ease-smooth);
+    }
+
+    .index.is-open {
+      opacity: var(--opacity-overlay);
+      visibility: visible;
+      pointer-events: auto;
+    }
+  }
+
+  .index__brand {
+    margin-bottom: var(--space-8);
+  }
+
+  .index__nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--index-gap);
+  }
+
+  /* Section divider within index (e.g., before "info") */
+  .index__divider {
+    height: var(--space-px);
+    background-color: var(--color-border-subtle);
+    margin: var(--space-4) 0;
+    transition: background-color var(--duration-slow) var(--ease-smooth);
+  }
+
+  /* ─── Index Item ─── */
+
+  .index-item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    cursor: pointer;
+    padding: var(--space-1) 0;
+    transition: opacity var(--duration-fast) var(--ease-default);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  @media (max-width: 1023px) {
+    .index-item {
+      min-height: 44px;
+      align-items: center;
+    }
+  }
+
+  .index-item:hover {
+    opacity: var(--opacity-hover);
+  }
+
+  .index-item[aria-disabled="true"] {
+    opacity: var(--opacity-disabled);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .index-item__bracket {
+    flex-shrink: 0;
+    width: 2.5ch;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .index-item.is-active .index-item__bracket {
+    font-weight: var(--weight-black);
+  }
+
+  .index-item__label {
+    font-family: var(--font-display);
+    font-weight: var(--weight-light);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .index-item.is-active .index-item__label {
+    font-weight: var(--weight-medium);
+  }
+
+  /* Sub-items (nested categories) */
+  .index-item--sub {
+    padding-left: var(--space-6);
+  }
+
+  .index-item--sub .index-item__bracket,
+  .index-item--sub .index-item__label {
+    font-size: var(--text-xs);
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: PRODUCT DATA BLOCK
+     
+     Fixed position. Always visible.
+     Contains: name, type, specs, price, BUY, concept, meta.
+     ───────────────────────────────────────── */
+
+  .data-block {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--data-max-width);
+    padding: var(--data-padding);
+    background-color: var(--color-bg-data);
+    z-index: var(--z-data);
+    transition: background-color var(--duration-slow) var(--ease-smooth);
+  }
+
+  /* Desktop: fixed bottom-right */
+  @media (min-width: 1024px) {
+    .data-block {
+      position: fixed;
+      bottom: var(--space-10);
+      right: var(--space-10);
+    }
+  }
+
+  /* Mobile: fixed bottom, full width */
+  @media (max-width: 1023px) {
+    .data-block {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: none;
+      padding: var(--space-4) var(--margin-mobile);
+      padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+      border-top: 1px solid var(--color-border-subtle);
+    }
+  }
+
+  .data-block__name {
+    font-family: var(--font-body);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-1);
+  }
+
+  .data-block__type {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .data-block__specs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-bottom: var(--space-6);
+  }
+
+  .data-block__spec {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .data-block__spec-label {
+    color: var(--color-text-secondary);
+  }
+
+  .data-block__price {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-black);
+    font-size: var(--text-lg);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-4);
+  }
+
+  .data-block__action {
+    margin-bottom: var(--space-6);
+  }
+
+  .data-block__concept {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-style: italic;
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+  }
+
+  .data-block__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .data-block__meta-line {
+    font-family: var(--font-body);
+    font-weight: var(--weight-extralight);
+    font-size: var(--text-3xs);
+    line-height: var(--leading-normal);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Compact variant for mobile */
+  @media (max-width: 1023px) {
+    .data-block__specs,
+    .data-block__concept,
+    .data-block__meta {
+      display: none;
+    }
+
+    .data-block.is-expanded .data-block__specs,
+    .data-block.is-expanded .data-block__concept,
+    .data-block.is-expanded .data-block__meta {
+      display: flex;
+    }
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: BUTTON
+     
+     No border-radius. No shadows. Flat.
+     ───────────────────────────────────────── */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: var(--space-3) var(--space-8);
+    background-color: var(--color-btn-bg);
+    color: var(--color-btn-text);
+    font-family: var(--font-mono);
+    font-weight: var(--weight-black);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    transition:
+      background-color var(--duration-fast) var(--ease-default),
+      color var(--duration-slow) var(--ease-smooth);
+  }
+
+  .btn:hover {
+    background-color: var(--color-btn-bg-hover);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn--disabled,
+  .btn:disabled {
+    background-color: var(--color-btn-bg-disabled);
+    color: var(--color-btn-text-disabled);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .btn--full {
+    width: 100%;
+  }
+
+  .btn--outline {
+    background-color: transparent;
+    color: var(--color-interactive);
+    border: 1px solid var(--color-border);
+    transition:
+      background-color var(--duration-fast) var(--ease-default),
+      color var(--duration-fast) var(--ease-default),
+      border-color var(--duration-slow) var(--ease-smooth);
+  }
+
+  .btn--outline:hover {
+    background-color: var(--color-interactive);
+    color: var(--color-text-inverse);
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: MEDIA CONTAINER
+     
+     Holds img/video/gif. Never 100vw.
+     Desktop: height-driven (vh units).
+     Mobile: width-driven (% of parent).
+     ───────────────────────────────────────── */
+
+  .media {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .media img,
+  .media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Desktop sizes — height-driven, width auto */
+  @media (min-width: 1024px) {
+    .media--hero {
+      height: 100vh;
+      height: 100dvh;
+    }
+    .media--large {
+      height: 70vh;
+    }
+    .media--medium {
+      height: 50vh;
+    }
+    .media--small {
+      height: 30vh;
+    }
+
+    .media--hero,
+    .media--large,
+    .media--medium,
+    .media--small {
+      width: auto;
+    }
+
+    .media--hero img,
+    .media--hero video,
+    .media--large img,
+    .media--large video,
+    .media--medium img,
+    .media--medium video,
+    .media--small img,
+    .media--small video {
+      height: 100%;
+      width: auto;
+      max-width: none;
+    }
+  }
+
+  /* Mobile sizes — width-driven */
+  @media (max-width: 1023px) {
+    .media--hero {
+      width: 90%;
+    }
+    .media--large {
+      width: 80%;
+    }
+    .media--medium {
+      width: 65%;
+    }
+    .media--small {
+      width: 50%;
+    }
+  }
+
+  /* Type badge (VID, GIF) */
+  .media__badge {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-3xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: rgba(10, 10, 10, 0.5);
+  }
+
+  /* Sequence number */
+  .media__seq {
+    position: absolute;
+    bottom: var(--space-2);
+    left: var(--space-2);
+    font-family: var(--font-mono);
+    font-weight: var(--weight-extralight);
+    font-size: var(--text-3xs);
+    letter-spacing: var(--tracking-wider);
+    color: #ffffff;
+    opacity: 0.6;
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: SCROLL TEXT
+     
+     Inline text between media in scroll track.
+     ───────────────────────────────────────── */
+
+  .scroll-text {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: var(--z-text);
+    max-width: 320px;
+  }
+
+  @media (min-width: 1024px) {
+    .scroll-text {
+      padding: 0 var(--space-6);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .scroll-text {
+      padding: var(--space-8) var(--margin-mobile);
+      max-width: none;
+    }
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: HEADER (Mobile only)
+     ───────────────────────────────────────── */
+
+  .header {
+    display: none;
+  }
+
+  @media (max-width: 1023px) {
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--z-header);
+      padding: var(--space-4) var(--margin-mobile);
+      padding-top: calc(var(--space-4) + env(safe-area-inset-top, 0px));
+      background-color: var(--color-bg);
+      transition: background-color var(--duration-slow) var(--ease-smooth);
+    }
+  }
+
+  .header__brand {
+    display: flex;
+    align-items: center;
+    height: 24px;
+  }
+
+  .header__brand svg {
+    height: 100%;
+    width: auto;
+    fill: var(--color-text-primary);
+    transition: fill var(--duration-slow) var(--ease-smooth);
+  }
+
+  .header__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: INDEX TOGGLE (Mobile)
+     ───────────────────────────────────────── */
+
+  .index-toggle {
+    display: none;
+  }
+
+  @media (max-width: 1023px) {
+    .index-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      font-family: var(--font-mono);
+      font-weight: var(--weight-medium);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition: opacity var(--duration-fast) var(--ease-default);
+    }
+
+    .index-toggle:hover {
+      opacity: var(--opacity-hover);
+    }
+  }
+
+  /* ─────────────────────────────────────────
+     COMPONENT: MODE TOGGLE
+     
+     Desktop: fixed bottom-left (after index)
+     Mobile: inside header controls
+     ───────────────────────────────────────── */
+
+  .mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    transition: opacity var(--duration-fast) var(--ease-default);
+  }
+
+  .mode-toggle:hover {
+    opacity: var(--opacity-hover);
+  }
+
+  @media (min-width: 1024px) {
+    .mode-toggle {
+      position: fixed;
+      bottom: var(--space-8);
+      left: var(--index-padding-x);
+      z-index: var(--z-toggle);
+    }
+  }
+
+  .mode-toggle__indicator {
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--color-border);
+    transition:
+      background-color var(--duration-normal) var(--ease-default),
+      border-color var(--duration-slow) var(--ease-smooth);
+  }
+
+  html.rosa-mode .mode-toggle__indicator {
+    background-color: var(--color-text-primary);
+  }
+
+  .mode-toggle__label {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-3xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+  }
+
+  /* ─────────────────────────────────────────
+     LAYOUT: DESKTOP — HORIZONTAL SCROLL
+     
+     Index fixed left.
+     Content area starts after index width.
+     Media scrolls horizontally (GSAP).
+     Data block fixed bottom-right.
+     ───────────────────────────────────────── */
+
+  @media (min-width: 1024px) {
+    .layout {
+      margin-left: var(--index-width);
+    }
+
+    .scroll-track {
+      display: flex;
+      align-items: center;
+      gap: var(--media-gap);
+      padding-left: var(--margin-desktop);
+      /* Extra right padding so last item doesn't hide behind data block */
+      padding-right: calc(var(--data-max-width) + var(--space-20));
+      height: 100vh;
+      height: 100dvh;
+      /* Width is content-driven — GSAP controls the translation */
+    }
+  }
+
+  /* ─────────────────────────────────────────
+     LAYOUT: MOBILE — VERTICAL SCROLL
+     
+     Header fixed top.
+     Content flows vertically.
+     Data block fixed bottom.
+     ───────────────────────────────────────── */
+
+  @media (max-width: 1023px) {
+    .layout {
+      /* Clearance: header top + data block bottom */
+      padding-top: calc(56px + env(safe-area-inset-top, 0px) + var(--space-4));
+      padding-bottom: calc(180px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .scroll-track {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      padding: var(--space-4) var(--margin-mobile);
+    }
+
+    /* Rhythm: alternate media positioning */
+    .scroll-track > .media:nth-child(3n + 1) {
+      align-self: flex-start;
+    }
+
+    .scroll-track > .media:nth-child(3n + 2) {
+      align-self: flex-end;
+    }
+
+    .scroll-track > .media:nth-child(3n) {
+      align-self: center;
+    }
+  }
+
+  /* ─────────────────────────────────────────
+     CONTENT TRANSITIONS
+     
+     Used when switching between prendas.
+     Vue <Transition> classes.
+     ───────────────────────────────────────── */
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity var(--duration-content) var(--ease-smooth);
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  /* Slide variant for mobile index */
+  .slide-enter-active,
+  .slide-leave-active {
+    transition:
+      opacity var(--duration-normal) var(--ease-default),
+      visibility var(--duration-normal) var(--ease-default);
+  }
+
+  .slide-enter-from,
+  .slide-leave-to {
+    opacity: 0;
+  }
+
+  /* ─────────────────────────────────────────
+     REDUCED MOTION
+     
+     Respects user preference.
+     Disables all transitions and animations.
+     Falls back to vertical scroll on desktop.
+     ───────────────────────────────────────── */
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Fall back to vertical layout */
+    @media (min-width: 1024px) {
+      .scroll-track {
+        flex-direction: column;
+        height: auto;
+        align-items: flex-start;
+        padding-right: calc(var(--data-max-width) + var(--space-10));
+      }
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYER: UTILITIES
+   
+   Highest priority. Override anything.
+   Use sparingly — prefer component classes.
+   ═══════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  /* ─── Visibility ─── */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ─── Text transform ─── */
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .lowercase {
+    text-transform: lowercase;
+  }
+  .capitalize {
+    text-transform: capitalize;
+  }
+
+  /* ─── Scroll control ─── */
+  .no-scroll {
+    overflow: hidden;
+  }
+
+  /* ─── Color overrides ─── */
+  .color-primary {
+    color: var(--color-text-primary);
+  }
+  .color-secondary {
+    color: var(--color-text-secondary);
+  }
+  .color-tertiary {
+    color: var(--color-text-tertiary);
+  }
+  .color-inverse {
+    color: var(--color-text-inverse);
+  }
+  .color-accent {
+    color: var(--color-accent);
+  }
+
+  /* ─── Display ─── */
+  .block {
+    display: block;
+  }
+  .flex {
+    display: flex;
+  }
+  .hidden {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .desktop\:block {
+      display: block;
+    }
+    .desktop\:flex {
+      display: flex;
+    }
+    .desktop\:hidden {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .mobile\:block {
+      display: block;
+    }
+    .mobile\:flex {
+      display: flex;
+    }
+    .mobile\:hidden {
+      display: none;
+    }
+  }
+}
